@@ -1,37 +1,9 @@
-.board {
+.App{
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.row {
-  display: flex;
-  gap: 10px;
-}
-
-.cell {
-  width: 50px;
-  height: 50px;
-  border: 2px solid black;
-  display: flex;
-  justify-content: center;
+  flex-direction:column;
+  justify-content: flex-start ;
   align-items: center;
-  font-size: 26px;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: white;
-  transition: 0.2s;
-}
-
-/* צבעים */
-.cell.green {
-  background-color: lightgreen;
-}
-
-.cell.yellow {
-  background-color: gold;
-}
-
-.cell.gray {
-  background-color: #888;
+  padding: 0;
+  background-color: rgb(203, 203, 216);
+  height: 100vh;
 }

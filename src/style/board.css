@@ -1,44 +1,74 @@
+
 .board {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 20px;
+  margin: 20px auto;
+  /* margin-left: 50%; */
 }
 
 .row {
   display: flex;
   gap: 8px;
 }
-
-/* עיצוב תאי WORDLE */
 .cell {
   width: 60px;
   height: 60px;
-  border: 2px solid #3a3a3c;
+  perspective: 1000px; /* מאפשר אפקט תלת-ממדי */
+  margin: 2px;
+}
+
+.cell-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s; /* משך ההיפוך */
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.cell.flipped .cell-inner {
+  transform: rotateX(180deg); /* הפוך את הקלף */
+}
+
+.cell-front,
+.cell-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 32px;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: #121213;
-  color: white;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  backface-visibility: hidden; /* מסתיר את הצד האחורי כשלא הפוך */
 }
 
-/* צבעים כמו המקורי */
-.cell.green {
+.cell-front {
+  background-color: #55555c; /* הצד הקדמי */
+  color: white;
+  border: 2px solid #3a3a3c;
+}
+
+.cell-back {
+  transform: rotateX(180deg); /* הצד האחורי הפוך */
+  color: white;
+}
+
+/* צבעים צד אחורי */
+.cell-back.green {
   background-color: #538d4e;
   border-color: #538d4e;
 }
 
-.cell.yellow {
+.cell-back.yellow {
   background-color: #b59f3b;
   border-color: #b59f3b;
 }
 
-.cell.gray {
+.cell-back.gray {
   background-color: #3a3a3c;
   border-color: #3a3a3c;
 }

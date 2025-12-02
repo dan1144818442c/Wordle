@@ -1,4 +1,4 @@
-export function handleKeyDown(
+export async function handleKeyDown(
   e,
   rows,
   setRows,
@@ -8,12 +8,12 @@ export function handleKeyDown(
   setCurrentCol,
   colors,
   setColors,
-  secret_word
+  secret_word,
+  isWin,
+  setIsWin
 ) {
   const key = e.key.toUpperCase();
 
-  // הדפסת key לבדיקה
-  console.log("Key pressed:", key);
 
   // אותיות A-Z
   if (/^[A-Z]$/.test(key)) {
@@ -35,10 +35,11 @@ export function handleKeyDown(
     }
   }
 
+  const guess = rows[currentRow].join("");
+
   // Enter
   if (key === "ENTER") {
     if (currentCol === 5) {
-      const guess = rows[currentRow].join("");
 
       // צבעים
       const newColors = colors.map((row) => [...row]);
@@ -47,16 +48,28 @@ export function handleKeyDown(
       for (let i = 0; i < 5; i++) {
         if (guess[i] === secret_word[i]) rowColors[i] = "green";
         else if (secret_word.includes(guess[i])) rowColors[i] = "yellow";
-      }
+        
+        // await sleep(1000);
 
-      newColors[currentRow] = rowColors;
-      setColors(newColors);
+        }
+        newColors[currentRow] = rowColors;
+        setColors(newColors);
+        
+      await sleep(2000);
 
       // מעבר שורה
       if (currentRow < rows.length - 1) {
         setCurrentRow(currentRow + 1);
         setCurrentCol(0);
       }
+      if (guess == secret_word){
+        setIsWin(true)
+
+      }
     }
   }
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
